@@ -1,4 +1,9 @@
-import { setPendingGifUrl, setPendingFile, setFileTypeCheck } from '../features/uploads/handlers.js';
+import {
+  setPendingGifUrl,
+  setPendingFile,
+  setFileTypeCheck,
+  setIgnoreNextChange,
+} from '../features/uploads/handlers.js';
 
 export function initGifPicker() {
   const modal = $(

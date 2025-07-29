@@ -1,6 +1,7 @@
 export let pendingFile = null;
 export let fileTypeCheck = "";
 export let pendingGifUrl = null;
+let ignoreNextChange = false;
 
 export function setPendingFile(file) {
   pendingFile = file;
@@ -12,6 +13,10 @@ export function setFileTypeCheck(type) {
 
 export function setPendingGifUrl(url) {
   pendingGifUrl = url;
+}
+
+export function setIgnoreNextChange(val) {
+  ignoreNextChange = val;
 }
 $(document).on("change", ".file-input, #file-input", function (e) {
   if (ignoreNextChange) {

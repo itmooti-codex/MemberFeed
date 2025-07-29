@@ -164,6 +164,9 @@ export async function createFeedToSubmit(
     if (fileTypeCheck === "Image") {
       finalPayload.image_orientation = await getImageOrientation(pendingFile);
     }
+  } else if (pendingGifUrl) {
+    finalPayload.file_link = pendingGifUrl;
+    finalPayload.file_type = "Gif";
   }
 
   try {

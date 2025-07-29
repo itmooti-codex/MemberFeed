@@ -1,4 +1,4 @@
-import { setPendingGifUrl, setPendingFile, setFileTypeCheck, setIgnoreNextChange } from '../features/uploads/handlers.js';
+import { setPendingGifUrl, setPendingFile, setFileTypeCheck } from '../features/uploads/handlers.js';
 
 export function initGifPicker() {
   const modal = $(
@@ -168,6 +168,8 @@ export function initGifPicker() {
           setPendingFile(null);
           setPendingGifUrl(embed);
           setFileTypeCheck('Gif');
+        } else {
+
         }
       } catch (err) {
         console.error('Failed to add GIF', err);

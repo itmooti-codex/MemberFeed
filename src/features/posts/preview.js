@@ -28,7 +28,7 @@ if (previewModal) {
 
 $(document).on(
   'click',
-  '.file-preview img',
+  '.file-preview img, .file-preview iframe, .file-preview video, .file-preview audio, .file-preview a',
   function (e) {
     e.preventDefault();
     if (!previewModal) return;

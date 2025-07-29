@@ -10,9 +10,11 @@ import { GLOBAL_PAGE_TAG } from "../../tag.js";
 import { findNode, buildTree, mapItem } from "../../ui/render.js";
 import {
   pendingFile,
+  pendingGifUrl,
   fileTypeCheck,
   setPendingFile,
   setFileTypeCheck,
+  setPendingGifUrl,
 } from "../uploads/handlers.js";
 // import { processFileFields } from "../../utils/handleFile.js";
 import { uploadAndGetFileLink } from "../../utils/upload.js";
@@ -65,7 +67,7 @@ export async function createFeedToSubmit(
   const inModal = Boolean(formWrapper?.closest('#modalFeedRoot'));
   const editor = $(`.${formElementId} .editor`);
   const htmlContent = editor.html().trim();
-  if (!htmlContent && !pendingFile) {
+  if (!htmlContent && !pendingFile && !pendingGifUrl) {
     alert("Please enter some content or upload a file.");
     return null;
   }
@@ -142,7 +144,10 @@ export async function createFeedToSubmit(
 
   let finalPayload = { ...payload };
 
-  if (pendingFile) {
+  if (fileTypeCheck === 'Gif' && pendingGifUrl) {
+    finalPayload.file_link = pendingGifUrl;
+    finalPayload.file_type = 'Gif';
+  } else if (pendingFile) {
     
     const link = await uploadAndGetFileLink(pendingFile);
     const fileData = {
@@ -252,6 +257,7 @@ export async function createFeedToSubmit(
     editor.html("");
     setPendingFile(null);
     setFileTypeCheck("");
+    setPendingGifUrl(null);
     $("#file-input").val("");
   } catch (err) {
    

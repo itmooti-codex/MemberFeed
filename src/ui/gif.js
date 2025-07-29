@@ -1,3 +1,5 @@
+import { setPendingGifUrl, setPendingFile, setFileTypeCheck, setIgnoreNextChange } from '../features/uploads/handlers.js';
+
 export function initGifPicker() {
   const modal = $(
     `<div id="gif-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start pt-12 !z-[2147483649]">
@@ -73,10 +75,12 @@ export function initGifPicker() {
       $('#gif-grid').empty();
       (data.data || []).forEach(g => {
         const originalUrl = g.images.original.url;
+        const embed = g.embed_url;
         const filename = originalUrl.split('/').pop().split('?')[0];
         $('<img>')
           .attr('src', g.images.fixed_height_small.url)
           .attr('data-full', originalUrl)
+          .attr('data-embed', embed)
           .attr('data-filename', filename)
           .addClass('cursor-pointer rounded')
           .appendTo('#gif-grid');
@@ -151,24 +155,25 @@ export function initGifPicker() {
 
   $('#gif-grid').on('click', 'img', async function () {
     const url = $(this).data('full');
+    const embed = $(this).data('embed');
     const filename = $(this).data('filename') || 'giphy.gif';
     if (pondInstance) {
       try {
         showPondLoading();
         const blob = await fetchGifBlob(url);
         if (blob.type === 'image/gif') {
+          setIgnoreNextChange(true);
           const file = new File([blob], filename, { type: blob.type });
           await pondInstance.addFile(file);
-        } else {
-
+          setPendingFile(null);
+          setPendingGifUrl(embed);
+          setFileTypeCheck('Gif');
         }
       } catch (err) {
         console.error('Failed to add GIF', err);
       } finally {
         hidePondLoading();
       }
-    } else {
-
     }
     $('#gif-modal').addClass('hidden');
   });

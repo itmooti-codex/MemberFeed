@@ -184,6 +184,8 @@
                   {{if imageOrientation ==="portrait"}} object-contain size-full {{else}} w-full h-full object-cover{{/if}}
                   {{/if}} 
                   {{if !~inModal && imageOrientation ==="portrait"}} object-contain size-full {{else !~inModal && imageOrientation !="portrait"}} w-full h-full object-cover{{/if}}"  alt="preview" />
+                  {{else fileType === "Gif"}}
+                  <iframe src="{{:fileContent}}" width="100%" height="300" frameborder="0" allowfullscreen></iframe>
                   {{else fileType === "Audio"}}
                   <audio class="js-player" controls>
                       <source src="{{:fileContent}}" type="audio/mpeg" />
@@ -218,6 +220,8 @@
                   {{if depth > 0 && fileContentComment}}
                   {{if fileType === "Image"}}
                   <img src="{{:fileContentComment}}" style="width:211px;height:138px;object-fit:contain;" alt="preview" />
+                  {{else fileType === "Gif"}}
+                  <iframe src="{{:fileContentComment}}" width="211" height="138" frameborder="0" allowfullscreen></iframe>
                   {{else fileType === "Audio"}}
                   <label for="audio-player">{{:fileContentCommentName}}</label>
                   <audio class="js-player" controls>
@@ -391,6 +395,8 @@
                                 {{if depth > 0 && fileContentComment}}
                             {{if fileType === "Image"}}
                               <img src="{{:fileContentComment}}" style="width:211px;height:138px;object-fit:contain;" alt="preview" />
+                            {{else fileType === "Gif"}}
+                              <iframe src="{{:fileContentComment}}" width="211" height="138" frameborder="0" allowfullscreen></iframe>
                             {{else fileType === "Audio"}}
                             <label for="audio-player " class="max-[702px]:line-clamp-1">{{:fileContentCommentName}}</label>
                               <audio class="js-player" controls>

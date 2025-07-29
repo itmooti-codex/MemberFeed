@@ -1,4 +1,4 @@
-import { setPendingFile, setFileTypeCheck } from '../features/uploads/handlers.js';
+import { setPendingFile, setFileTypeCheck, setPendingGifUrl } from '../features/uploads/handlers.js';
 import { micIcon } from '../ui/emoji.js';
 FilePond.registerPlugin(
   FilePondPluginFileValidateType,
@@ -113,6 +113,7 @@ export function initFilePond() {
     pond.on("removefile", () => {
       setPendingFile(null);
       setFileTypeCheck("");
+      setPendingGifUrl(null);
       inputElement.value = "";
       canvas.style.display = "none";
       const cancelBtn = section.querySelector(".cancelRecordingBtn");

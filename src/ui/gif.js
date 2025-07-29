@@ -162,6 +162,7 @@ export function initGifPicker() {
         showPondLoading();
         const blob = await fetchGifBlob(url);
         if (blob.type === 'image/gif') {
+          setIgnoreNextChange(true);
           const file = new File([blob], filename, { type: blob.type });
           await pondInstance.addFile(file);
           setPendingFile(null);
@@ -175,8 +176,6 @@ export function initGifPicker() {
       } finally {
         hidePondLoading();
       }
-    } else {
-
     }
     $('#gif-modal').addClass('hidden');
   });

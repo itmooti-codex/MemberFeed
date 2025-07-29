@@ -144,7 +144,10 @@ export async function createFeedToSubmit(
 
   let finalPayload = { ...payload };
 
-  if (pendingFile) {
+  if (fileTypeCheck === 'Gif' && pendingGifUrl) {
+    finalPayload.file_link = pendingGifUrl;
+    finalPayload.file_type = 'Gif';
+  } else if (pendingFile) {
     
     const link = await uploadAndGetFileLink(pendingFile);
     const fileData = {

@@ -14,6 +14,10 @@ export function setPendingGifUrl(url) {
   pendingGifUrl = url;
 }
 $(document).on("change", ".file-input, #file-input", function (e) {
+  if (ignoreNextChange) {
+    ignoreNextChange = false;
+    return;
+  }
   pendingFile = e.target.files[0] || null;
   pendingGifUrl = null;
   if (pendingFile) {
@@ -24,7 +28,7 @@ $(document).on("change", ".file-input, #file-input", function (e) {
       fileTypeCheck = "Video";
     } else if (type.startsWith("image/")) {
       fileTypeCheck = "Image";
-    }else{
+    } else {
       fileTypeCheck = "File";
     }
   }

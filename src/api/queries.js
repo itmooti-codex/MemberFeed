@@ -266,10 +266,10 @@ mutation updateFeedPost(
 `;
 
 export const CREATE_NOTIFICATION = `
-mutation createNotifications(
-  $payload: [NotificationCreateInput] = null
+mutation createAlerts(
+  $payload: [AlertCreateInput] = null
 ) {
-  createNotifications(payload: $payload) {
+  createAlerts(payload: $payload) {
     parent_feed_id
     notified_contact_id
     parent_feed_if_not_a_post
@@ -347,11 +347,11 @@ export function GET_NOTIFICATIONS() {
   }
 
   return `
-  subscription subscribeToNotifications(
+  subscription subscribeToAlerts(
     $author_id: ${ACCOUNT_NAME}ContactID
     $notified_contact_id: ${ACCOUNT_NAME}ContactID
   ) {
-    subscribeToNotifications(
+    subscribeToAlerts(
       query: [
         {
           where: {
